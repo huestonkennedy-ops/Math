@@ -4,5 +4,5 @@ module application {
     requires javafx.base;
 
     opens application to javafx.fxml;
-    exports application;
+    exports application.ui;
 }

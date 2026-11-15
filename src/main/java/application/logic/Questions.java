@@ -15,16 +15,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 public class Questions {
-    private ArrayList<String> questions = new ArrayList<>();
-    private ArrayList<Double> answers = new ArrayList<>();
+    private ArrayList<Tuple<String, Double>> questions = new ArrayList<>();
     public void addQuestion(String question, double answer) {
-        questions.add(question);
-        answers.add(answer);
+        questions.add(new Tuple<String,Double>(question, answer));
     }
     public VBox getQuestions() {
         VBox toGive = new VBox();
         for(int i = 0; i<questions.size(); i++) {
-            toGive.getChildren().add(asQuestion(questions.get(i), answers.get(i)));
+            toGive.getChildren().add(asQuestion(questions.get(i).getFirst(), questions.get(i).getSecond()));
         }
         return toGive;
     }
@@ -57,8 +55,8 @@ public class Questions {
         HBox toGive = new HBox();
         Random random = new Random();
         int randIndex = random.nextInt(questions.size());
-        Label reminder = new Label(questions.get(randIndex));
-        Label answer = new Label("" + answers.get(randIndex));
+        Label reminder = new Label(questions.get(randIndex).getFirst());
+        Label answer = new Label("" + questions.get(randIndex).getSecond());
         Label correct = new Label();
         Button checkAnswer = new Button("Submit answer");
         Button newQuestion = new Button("New Question");
@@ -85,8 +83,8 @@ public class Questions {
             @Override 
             public void handle(ActionEvent event) {
                 int rand = random.nextInt(questions.size());
-                reminder.setText(questions.get(rand));
-                answer.setText("" + answers.get(rand));
+                reminder.setText(questions.get(rand).getFirst());
+                answer.setText("" + questions.get(rand).getSecond());
                 correct.setText("");
                 input.setText("");
             }
