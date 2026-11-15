@@ -19,10 +19,11 @@ public class App extends Application {
        Questions questions = new Questions();
        questions.addQuestion("What is 3 x 2", 6);
        questions.addQuestion("What is 5*2.5", 12.5);
-       Scene scene = new Scene(questions.getQuestions());
+       Scene scene = new Scene(questions.randomSimple());
        window.setScene(scene);
        window.show();
     }
+    
 
     public static void main(String[] args) {
         launch();

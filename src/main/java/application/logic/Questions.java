@@ -7,11 +7,13 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import java.util.Random;
 
 import java.util.ArrayList;
 
 public class Questions {
     private ArrayList<HBox> questions = new ArrayList<>();
+    private Random random = new Random();
     public Questions() {
 
     }
@@ -35,7 +37,7 @@ public class Questions {
                 Correct.setText("Correct!");
             } else {
                 Correct.setText("Wrong!");
-            }
+            }     
         } catch(Exception e) {
             Correct.setText("Invalid format");
         }
@@ -49,5 +51,25 @@ public class Questions {
             temp.getChildren().add(i);
         }
         return temp;
+    }
+    public HBox getRandom() {
+        return questions.get(random.nextInt(questions.size()));
+    }
+    public VBox randomSimple(){
+        VBox randoms = new VBox();
+        Button button = new Button("Get new question");
+        HBox first = getRandom();
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override 
+            public void handle(ActionEvent event) {
+              randoms.getChildren().clear();
+            HBox temp = getRandom();
+            randoms.getChildren().add(temp);
+            randoms.getChildren().add(button);
+            }
+        });
+        first.getChildren().add(button);
+        randoms.getChildren().add(first);
+        return randoms;
     }
 }
