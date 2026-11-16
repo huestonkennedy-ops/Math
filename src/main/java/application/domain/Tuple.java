@@ -1,4 +1,4 @@
-package application.logic;
+package application.domain;
 
 public class Tuple<Type1, Type2> {
     private Type1 first;

@@ -1,5 +1,6 @@
 package application.ui;
 
+import application.logic.QuestionClass;
 import application.logic.Questions;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -9,11 +10,8 @@ public class App extends Application {
 
     @Override
     public void start(Stage window) {
-       Questions questions = new Questions();
-       questions.addQuestion("What is 3 x 2", 6);
-       questions.addQuestion("What is 5!", 120);
-       questions.addQuestion("What is 7 x 4", 28);
-       Scene scene = new Scene(questions.randomQuestions());
+       QuestionClass questions = new QuestionClass();
+       Scene scene = new Scene(questions.getHorizontal());
        window.setScene(scene);
        window.show();
     }

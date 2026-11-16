@@ -2,10 +2,9 @@ package application.logic;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
-import java.util.Set;
 
+import application.domain.Tuple;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
