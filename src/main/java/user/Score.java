@@ -29,4 +29,14 @@ public class Score {
     public int outOf() {
         return outOf;
     }
+    @Override public String toString() {
+        return correct + "/" + outOf;
+    }
+    public void setScore(int correct, int outOf) {
+     this.correct = correct;
+     this.outOf = outOf;   
+    }
+    public String getScore() {
+        return subject.toString() + ": " + this.toString();
+    }
 }
