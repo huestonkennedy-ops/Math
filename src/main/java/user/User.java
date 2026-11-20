@@ -20,7 +20,7 @@ public class User {
     }
     private Score getSubject(Subject subject) {
         for(Score i: scores) {
-            if(i.getSubject() == subject) {
+            if(i.getSubject().sameAs(subject)) {
                 return i;
             }
         }
@@ -52,5 +52,8 @@ public class User {
     }
     public String getScore(Subject subject) {
         return getSubject(subject).getScore();
+    }
+    public String getPassword() {
+        return this.password;
     }
 }

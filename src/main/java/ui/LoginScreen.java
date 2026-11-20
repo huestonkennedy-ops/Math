@@ -19,7 +19,7 @@ public class LoginScreen {
         this.users = users;
         users.read();
         this.window = window;
-        topic = new TopicScreen(window);
+        topic = new TopicScreen(window, users);
     }
     public void getLogin() {
         GridPane layout = new GridPane();

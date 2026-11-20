@@ -1,4 +1,4 @@
-package subject;
+package logic;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -10,37 +10,54 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import subject.Subject;
+import user.User;
 
-public class Questions {
+public final class Questions {
     private ArrayList<Tuple<String, String>> questions = new ArrayList<>();
-    private Scene back;
-    private Stage window;
     private Label question;
     private TextField answer;
     private Button submit;
     private Label correct;
     private Random random = new Random();
+    private Button goBack;
     private int index;
     private Button nextQuestion;
-    private HBox layout = new HBox();
-    public Questions(Scene back, Stage window) {
-        this.back = back;
-        this.window = window;
-        initialize();
+    private HBox layout;
+    private Scene back;
+    private Stage window;
+    private Scene group;
+    private Subject subject;
+    private User user;
+    private Users users;
+
+    public Questions() {
     }
     public void addQuestion(String question, String answer) {
         questions.add(new Tuple<String,String>(question + " ", answer));
+        goBack = new Button();
     }
-    public void startRandom() {
+    private void startRandom(Stage window, Scene back) {
+        this.back = back;
+        this.window = window;
+        goBack = new Button("back");
+        goBack.setOnAction((event) -> {
+            this.window.setScene(this.back);
+        });
         index = random();
         if(index == -1) {
             return;
         }
         question.setText(questions.get(index).getFirst());
-        window.setScene(new Scene(layout));
-        System.out.println("set");
+        this.group = new Scene(layout);
     }
-    private void initialize() {
+    public void start(User user) {
+        this.user = user;
+        window.setScene(group);
+    }
+    public void initialize(Stage window, Scene group, Users users) {
+        this.users = users;
+        layout = new HBox();
         question = new Label();
         submit = new Button("Check answer");
         answer = new TextField();
@@ -61,11 +78,16 @@ public class Questions {
             }
             if(answer.getText().equals(questions.get(index).getSecond())) {
                 correct.setText(" Correct!");
+                user.addCorrect(subject);
+                users.writeToFile();
             } else {
                 correct.setText(" Wrong!");
+                user.addWrong(subject);
+                users.writeToFile();
             }
         });
-        layout.getChildren().addAll(question, answer, submit, nextQuestion, correct);
+        startRandom(window, group);
+        layout.getChildren().addAll(question, answer, submit, nextQuestion, correct, goBack);
 
     }
     private int random() {
@@ -73,6 +95,9 @@ public class Questions {
             return -1;
         }
         return random.nextInt(questions.size());
+    }
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 }
 

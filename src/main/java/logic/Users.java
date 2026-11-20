@@ -8,7 +8,7 @@ import java.util.Scanner;
 import user.User;
 import subject.Subject;
 
-public class Users {
+public final class Users {
     HashMap<String, User> users = new HashMap<>();
     Subject[] subjects = Subject.values();
     User activeUser;
